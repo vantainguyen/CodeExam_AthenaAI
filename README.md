@@ -6,7 +6,7 @@
 
 **Step 1**
 <br clear="left">
-Perform inference on a testing dataset.
+Perform inference on a test dataset.
 <br clear="left">
 **Step 2**
 <br clear="left">
