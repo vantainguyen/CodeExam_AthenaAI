@@ -11,7 +11,8 @@ import pandas as pd
 import shutil
 from PIL import Image
 import argparse
-from utils import model, plot_confusion_matrix
+from utils import model, plot_confusion_matrix, AccConfPerBin, CalibErrors, plot_calibration_error
+
 
 # -----------------------------------------------------Define arguments-----------------------------------------------------------------
 parser = argparse.ArgumentParser(description='Performance assessment')
@@ -82,6 +83,33 @@ def main():
  
     ## Plot a heatmap of the confusion matrix
     plot_confusion_matrix(cf_matrix, class_names)
+
+    # Step 3
+    ## Converting predicted results and ground truth to torch.Tensor
+    y_prob_t = torch.stack(y_prob)
+    y_true_t = torch.stack(y_true)
+
+    
+    ## Computing the confidence, accuracy and samples per bin
+    acb = AccConfPerBin(y_prob_t, n_bins=10)
+    conf = acb.average_confidence_per_bin()[0]
+    prob = acb.average_confidence_per_bin()[1]
+    samples_per_bin = acb.average_confidence_per_bin()[2]
+    acc = acb.accuracy_per_bin(y_true_t)[0]
+
+    ## Computing the Expected calibration error (ECE) and Maximum calibration error (MCE) 
+    ce = CalibErrors(acc,conf,samples_per_bin)
+    MCE = ce.compute_MCE()
+    ECE = ce.compute_ECE()
+
+    ## Creating results folder to save images
+    if not os.path.exists(os.path.join(path_base, 'results')):
+        os.mkdir(os.path.join(path_base, 'results'))
+
+    saving_path = os.path.join(path_base, 'results', 'calibration_graph.png')
+
+    ## Plotting the Calibration error across bins and save the figure in results folder
+    plot_calibration_error(acc, conf, prob, ECE, MCE, saving_path)
 
 
 if __name__ == '__main__':
