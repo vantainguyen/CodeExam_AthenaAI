@@ -121,6 +121,7 @@ class AccConfPerBin:
         samples_per_bin = numpy.array(samples_per_bin)
         acc = acc[0:-1]
         prob = self.prob[0:-1]
+        
         return acc, prob, samples_per_bin
 
     def average_confidence_per_bin(self):
@@ -160,6 +161,7 @@ class AccConfPerBin:
         samples_per_bin = numpy.array(samples_per_bin)
         conf = conf[0:-1]
         prob = self.prob[0:-1]
+
         return conf, prob, samples_per_bin
 
 class CalibErrors:

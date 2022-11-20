@@ -20,7 +20,6 @@ parser.add_argument('data', type=str, default='test', metavar='', help='A path t
 parser.add_argument('--model', type=str, default='tiny', metavar='', help="Type of ConvNext model: 'tiny', 'small', 'large' and 'base'")
 
 args = parser.parse_args()
-
 # ---------------------------------------------------------------------------------------------------------------------------------------
 
 # Defining transformation function
@@ -49,7 +48,6 @@ model = model(model_type, path_weights)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def main():
-
     """
     This script performs following steps to assess the performance of a classification model based on ConvNext.
     1. Perform inference on testing dataset
@@ -144,6 +142,41 @@ def main():
                 j += 1
                 img.save(os.path.join(FP_saving_path, 'pred{}_actual{}_{}.png'.format(
                     wrong_pred.item(), actual_p.item(), j)))
+
+    # Step 5: Finding potential patterns in the false positives
+    ## Loading false positives
+    filelist = glob.glob(os.path.join(FP_saving_path, '*.png')) 
+    data = np.array([np.array(Image.open(fname)) for fname in filelist])
+
+    ## Transforming data 
+    data_do = data.astype('float32') ## Converting to float
+    data_do /= 225.0 ## Normalization
+    data_do = data_do.reshape(len(data_do), -1) ## Reshaping data to fit in the KMeans method 
+
+    ## KMeans clustering
+    kmeans = KMeans(n_clusters = len(class_names))
+    kmeans.fit(data_do)
+
+    ## Including labels and image names in a Pandas Dataframe
+    image_cluster = pd.DataFrame(filelist,columns=['image'])
+    image_cluster["clusterid"] = kmeans.labels_
+
+    ## Saving images into cluster folders
+    ## Saving folder preparation
+    if not os.path.exists(os.path.join(path_base, 'results', 'false_positivesHINT')):
+        os.mkdir(os.path.join(path_base, 'results', 'false_positivesHINT'))
+
+    FP_HINT = os.path.join(path_base, 'results', 'false_positivesHINT')
+
+    for i in range(len(class_names)):
+        if not os.path.exists(os.path.join(FP_HINT, 'cluster_{}'.format(i))):
+            os.mkdir(os.path.join(FP_HINT, 'cluster_{}'.format(i)))
+
+        ## Images will be seperated according to cluster they belong
+        for j in range(len(image_cluster)):
+            if image_cluster['clusterid'][j] == i:
+                shutil.copy(os.path.join(FP_saving_path, 
+                                        image_cluster['image'][j]), os.path.join(FP_HINT, 'cluster_{}'.format(i)))
 
 
 if __name__ == '__main__':
