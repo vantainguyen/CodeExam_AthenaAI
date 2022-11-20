@@ -36,6 +36,8 @@ Find potential patterns in the false positives.
 
 **In linux**
 ```bash
+$ git clone https://github.com/vantainguyen/CodeExam_AthenaAI.git
+$ cd CodeExam_AthenaAI
 To download pre-trained weights:
 $ wget https://osf.io/download/5g2ds
 $ unzip 5g2ds
