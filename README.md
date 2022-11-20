@@ -32,6 +32,8 @@ Find potential patterns in the false positives.
 <br clear="left">
 ## Usage instructions
 
+- Clone the git repository CodeExam_AthenaAI and regard it as a current working directory.
+
 - For Cifar10 dataset, download and extract the test dataset and the weights of the ConvNext model into the working directory (For the ConvNext models pretrained on Cifar10 dataset, their weights can be downloaded from https://osf.io/download/5g2ds; the Cifar10 test dataset can be downloaded from https://osf.io/download/zg9s5). It's noted that the test images need to be contained in a sub-folder manner; in the other words, images of each class are contained in each sub-folder. 
 
 **In linux**
