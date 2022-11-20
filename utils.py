@@ -66,7 +66,6 @@ class AccConfPerBin:
     This class computes the accuracy and average confidence per bin. 
     Inputs:
     predicted: predicted (torch.Tensor is expected) results from DL model,
-     
     n_bins: the number of bins to compute the calibration error, 
     apply_softmax: whether to apply the softmax function.
     """
@@ -98,14 +97,14 @@ class AccConfPerBin:
         acc = numpy.linspace(0,1,self.n_bins+1)
         samples_per_bin = []
         for p in range(len(self.prob)-1):
-            #find elements with probability in between p and p+1
+            # Finding elements with probability in between p and p+1
             min_ = self.prob[p]
             max_ = self.prob[p+1]
             boolean_upper = self.accuracy <= max_
 
-            if p == 0:#we include the first element in bin
+            if p == 0: # Including the first element in bin
                 boolean_down = self.accuracy >= min_
-            else:#after that we included in the previous bin
+            else: # Including the previous bin
                 boolean_down = self.accuracy > min_
 
             index_range = boolean_down & boolean_upper
@@ -137,15 +136,15 @@ class AccConfPerBin:
         samples_per_bin = []
 
         for p in range(len(self.prob)-1):
-            #find elements with probability in between p and p+1
+            # Finding elements with probability in between p and p+1
             min_ = self.prob[p]
             max_ = self.prob[p+1]
             
             boolean_upper = self.accuracy <= max_
 
-            if p == 0:#we include the first element in bin
+            if p == 0: # Including the first element in bin
                 boolean_down = self.accuracy >= min_
-            else:#after that we included in the previous bin
+            else: # Including the previous bin
                 boolean_down = self.accuracy > min_
 
             index_range = boolean_down & boolean_upper
