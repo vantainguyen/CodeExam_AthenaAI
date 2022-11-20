@@ -1,0 +1,4 @@
+test/
+pretrained_weights/
+__pycache__/
+results/
