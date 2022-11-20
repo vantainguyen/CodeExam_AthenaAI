@@ -16,7 +16,7 @@ from utils import model, plot_confusion_matrix, AccConfPerBin, CalibErrors, plot
 
 # -----------------------------------------------------Define arguments-----------------------------------------------------------------
 parser = argparse.ArgumentParser(description='Performance assessment')
-parser.add_argument('data', type=str, default='test', metavar='', help='A path to a folder containing data to be tested')
+parser.add_argument('data', type=str, metavar='', help='A path to a folder containing data to be tested')
 parser.add_argument('--model', type=str, default='tiny', metavar='', help="Type of ConvNext model: 'tiny', 'small', 'large' and 'base'")
 
 args = parser.parse_args()
