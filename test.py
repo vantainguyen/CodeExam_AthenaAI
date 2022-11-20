@@ -89,7 +89,6 @@ def main():
     y_prob_t = torch.stack(y_prob)
     y_true_t = torch.stack(y_true)
 
-    
     ## Computing the confidence, accuracy and samples per bin
     acb = AccConfPerBin(y_prob_t, n_bins=10)
     conf = acb.average_confidence_per_bin()[0]
@@ -110,6 +109,41 @@ def main():
 
     ## Plotting the Calibration error across bins and save the figure in results folder
     plot_calibration_error(acc, conf, prob, ECE, MCE, saving_path)
+
+    # Step 4: Saving false positives from each class
+    ## Defining inverse transformation function of a image to its original format
+    inv_normalize = transforms.Normalize(
+    mean=[-0.485/0.229, -0.456/0.224, -0.406/0.225],
+    std=[1/0.229, 1/0.224, 1/0.225])
+
+    ## Saving folder preparation
+    FP_saving_path = os.path.join(path_base, 'results', 'false_positives')
+    if not os.path.exists(FP_saving_path):
+        os.mkdir(FP_saving_path)
+
+    model.eval()
+    j = 0 ## index of saved image
+
+    with torch.no_grad():
+        for data, target in dataloaders:
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            pred = output.argmax(dim=1, keepdim=True)  ## get the index of the max output
+            ## Store wrongly predicted images
+            wrong_idx = (pred != target.view_as(pred)).nonzero()[:, 0]
+            wrong_samples = data[wrong_idx]
+            wrong_preds = pred[wrong_idx]
+            actual = target.view_as(pred)[wrong_idx]
+
+            for i in range(len(wrong_idx)):
+                sample = wrong_samples[i]
+                wrong_pred = wrong_preds[i]
+                actual_p = actual[i]
+                sample = inv_normalize(sample) ## inversely transform the image to the original format
+                img = TF.to_pil_image(sample)
+                j += 1
+                img.save(os.path.join(FP_saving_path, 'pred{}_actual{}_{}.png'.format(
+                    wrong_pred.item(), actual_p.item(), j)))
 
 
 if __name__ == '__main__':
