@@ -50,8 +50,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 def main():
     """
     This script performs following steps to assess the performance of a classification model based on ConvNext.
-    1. Perform inference on testing dataset
-    2. Create and plote a confusion matrix
+    1. Perform inference on test dataset
+    2. Create and plot a confusion matrix
     3. Compute and plot Calibration error
     4. Save false positives from each class
     5. Find potential patterns in the false positives
@@ -105,7 +105,7 @@ def main():
 
     saving_path = os.path.join(path_base, 'results', 'calibration_graph.png')
 
-    ## Plotting the Calibration error across bins and save the figure in results folder
+    ## Plotting the Calibration error across bins and saving the figure in the results folder
     plot_calibration_error(acc, conf, prob, ECE, MCE, saving_path)
 
     # Step 4: Saving false positives from each class
