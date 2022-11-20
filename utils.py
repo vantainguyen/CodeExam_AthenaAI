@@ -39,3 +39,27 @@ def model(model_type, path_weights):
     model_conv.load_state_dict(torch.load(weight_name, map_location=torch.device(device.type))) 
 
     return model_conv
+
+def plot_confusion_matrix(cf_matrix, class_names):
+
+    """
+    This function plot a heatmap of a confusion matrix.
+    Inputs:
+    cf_matrix: Confusion matrix, 
+    class_names: names of classes.
+    """
+    # Create pandas dataframe
+    dataframe = pd.DataFrame(cf_matrix, index=class_names, columns=class_names)
+    
+    # Create confusion matrix heatmap
+    plt.figure(figsize=(8, 6))
+    hm = sns.heatmap(dataframe, annot=True, cbar=True,cmap="YlGnBu",fmt="d")
+    hm.set_xticklabels(hm.get_xticklabels(), rotation=40)
+    plt.title("Confusion Matrix", fontsize=12)
+    plt.ylabel("True Class", fontsize=12)
+    plt.xlabel("Predicted Class", fontsize=12)
+    plt.tight_layout()
+    plt.savefig('confusion_matrix.png')
+    plt.show(block=False)
+    plt.pause(30)
+    plt.close()

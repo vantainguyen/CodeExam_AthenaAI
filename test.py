@@ -11,7 +11,7 @@ import pandas as pd
 import shutil
 from PIL import Image
 import argparse
-from utils import model
+from utils import model, plot_confusion_matrix
 
 # -----------------------------------------------------Define arguments-----------------------------------------------------------------
 parser = argparse.ArgumentParser(description='Performance assessment')
@@ -75,6 +75,13 @@ def main():
 
             _, predicted = torch.max(output, 1)
             y_pred.extend(predicted.cpu())
+
+    # Step 2
+    ## Create a confusion matrix
+    cf_matrix = confusion_matrix(y_true, y_pred)
+ 
+    ## Plot a heatmap of the confusion matrix
+    plot_confusion_matrix(cf_matrix, class_names)
 
 
 if __name__ == '__main__':
