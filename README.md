@@ -1,6 +1,6 @@
 # A Script to Assess the Performance of a Classification Model
 
-[License <img align="left" src="images/athenaai_logo.png" width="50" height="50">](https://github.com/vantainguyen/CodeExamAthenaAI/blob/main/LICENSE)
+[License <img align="left" src="images/athenaai_logo.png" width="50" height="50">]
 <br clear="left">
 ## This script executes the following 5 steps to assess the performance of the model:
 
