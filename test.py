@@ -56,7 +56,7 @@ def main():
     4. Save false positives from each class
     5. Find potential patterns in the false positives
     """
-    # Step 1
+    # Step 1: Performing inference on test dataset
     model.eval() ## Set model to evaluation mode
 
     y_true = []
@@ -75,14 +75,14 @@ def main():
             _, predicted = torch.max(output, 1)
             y_pred.extend(predicted.cpu())
 
-    # Step 2
+    # Step 2: Creating and plotting a confusion matrix
     ## Create a confusion matrix
     cf_matrix = confusion_matrix(y_true, y_pred)
  
     ## Plot a heatmap of the confusion matrix
     plot_confusion_matrix(cf_matrix, class_names)
 
-    # Step 3
+    # Step 3: Computing and plotting Calibration error
     ## Converting predicted results and ground truth to torch.Tensor
     y_prob_t = torch.stack(y_prob)
     y_true_t = torch.stack(y_true)
