@@ -95,7 +95,7 @@ def main():
     acc = acb.accuracy_per_bin(y_true_t)[0]
 
     ## Computing the Expected calibration error (ECE) and Maximum calibration error (MCE) 
-    ce = CalibErrors(acc,conf,samples_per_bin)
+    ce = CalibErrors(acc, conf, samples_per_bin)
     MCE = ce.compute_MCE()
     ECE = ce.compute_ECE()
 
