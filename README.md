@@ -65,7 +65,7 @@ data: A path to folder containing test dataset; model: Name of model to use, def
 ## Limitations
 - This script has two following limitations:
     <br clear="left">
-1. The confusion matrix has not been saved.
+1. The confusion matrix plot has not been saved.
     <br clear="left">
     Solution: Adding plt.savefig(path_to_save) to the plot_confusion_matrix function from utils.py to save the plot in path_to_save.
     <br clear="left">
