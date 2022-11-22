@@ -84,7 +84,7 @@ class AccConfPerBin:
             
     def accuracy_per_bin(self, real_tag):
         """" 
-        This function computes the accuracy per bin.
+        This method computes the accuracy per bin.
         Inputs:
         real_tag (torch.Tensor is expected): ground truth results, 
         Return:
@@ -125,7 +125,7 @@ class AccConfPerBin:
 
     def average_confidence_per_bin(self):
         """" 
-        This function computes the confidence per bin.
+        This method computes the confidence per bin.
         Return:
         conf: average confidence per bin,
         prob: probability across bins,
@@ -179,7 +179,7 @@ class CalibErrors:
 
     def compute_ECE(self):
         """" 
-        This function computes the Expected Calibration Error (ECE).
+        This method computes the Expected Calibration Error (ECE).
         """
         assert len(self.acc_bin) == len(self.conf_bin)
         ece = 0.0
@@ -192,7 +192,7 @@ class CalibErrors:
 
     def compute_MCE(self):
         """" 
-        This function computes the Maximum Calibration Error (MCE).
+        This method computes the Maximum Calibration Error (MCE).
         """
         assert len(self.acc_bin) == len(self.conf_bin)
 
