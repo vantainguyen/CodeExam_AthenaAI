@@ -39,7 +39,7 @@ Find potential patterns in the false positives.
 
 **In linux**
 ```bash
-$ git clone https://github.com/vantainguyen/CodeExam_AthenaAI.git
+$ git clone https://github.com/vantainguyen/Performance-Assessment-of-a-DL-model.git
 $ cd CodeExam_AthenaAI
 To download pre-trained weights:
 $ wget https://osf.io/download/5g2ds
