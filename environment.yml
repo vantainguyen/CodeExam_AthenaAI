@@ -1,4 +1,4 @@
-name: CodeExam3.7.15
+name: ENV
 channels:
   - conda-forge
   - defaults
