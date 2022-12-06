@@ -1,7 +1,6 @@
 # A Script to Assess the Performance of a Classification Model
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
 <br clear="left">
 ## This script executes the following 5 steps to assess the performance of the model:
 
