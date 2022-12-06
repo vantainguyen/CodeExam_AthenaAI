@@ -33,14 +33,14 @@ Find potential patterns in the false positives.
 <br clear="left">
 ## Usage instructions
 
-- Clone the git repository CodeExam_AthenaAI and regard it as a current working directory.
+- Clone the git repository Performance-Assessment-of-a-DL-model and regard it as a current working directory.
 
 - For Cifar10 dataset, download and extract the test dataset and the weights of the ConvNext model into the working directory (For the ConvNext models pretrained on Cifar10 dataset, their weights can be downloaded from https://osf.io/download/5g2ds; the Cifar10 test dataset can be downloaded from https://osf.io/download/zg9s5). It's noted that the test images need to be contained in a sub-folder manner; in the other words, images of each class are contained in each sub-folder. 
 
 **In linux**
 ```bash
 $ git clone https://github.com/vantainguyen/Performance-Assessment-of-a-DL-model.git
-$ cd ENV
+$ cd Performance-Assessment-of-a-DL-model
 To download pre-trained weights:
 $ wget https://osf.io/download/5g2ds
 $ unzip 5g2ds
@@ -53,7 +53,7 @@ $ unzip zg9s5
 
 ```bash
 conda env create -f environment.yml
-conda activate CodeExam3.7.15
+conda activate ENV
 ```
 
 - Execution of the script
