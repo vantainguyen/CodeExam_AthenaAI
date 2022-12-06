@@ -63,6 +63,7 @@ python test.py data --model
 ```
 data: A path to folder containing test dataset; model: Name of model to use, default is 'tiny' but can be 'small', 'large' and 'base'.
    <br clear="left">
+<!--
 ## Limitations
 - This script has two following limitations:
     <br clear="left">
@@ -73,4 +74,4 @@ data: A path to folder containing test dataset; model: Name of model to use, def
 2. It is required to perform the inference twice which increases the execution time.
     <br clear="left">
     Solution: Merge step 4 with step 1 to perform the inference and save the false positives of each class at once.
-    <br clear="left">
+    <br clear="left"> -->
